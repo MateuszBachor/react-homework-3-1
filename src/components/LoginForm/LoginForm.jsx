@@ -18,6 +18,19 @@ export class LoginForm extends React.Component {
     number: '',
   };
 
+  componentDidMount() {
+    let contactsJson = localStorage.getItem('contactsList');
+    let contactsList = JSON.parse(contactsJson);
+    if (contactsList !== null) {
+      this.setState(() => ({ contacts: contactsList }));
+    }
+  }
+
+  componentDidUpdate() {
+    let contactsJson = JSON.stringify(this.state.contacts);
+    localStorage.setItem('contactsList', contactsJson);
+  }
+
   handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.currentTarget;
